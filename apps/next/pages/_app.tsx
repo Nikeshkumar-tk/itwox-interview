@@ -8,7 +8,9 @@ import { Provider } from 'app/provider'
 import Head from 'next/head'
 import React from 'react'
 import type { SolitoAppProps } from 'solito'
-
+import Navbar from 'components/Navbar'
+import { Separator, YStack } from 'tamagui'
+import { ReactQueryProvider } from 'components/providers'
 if (process.env.NODE_ENV === 'production') {
   require('../public/tamagui.css')
 }
@@ -21,9 +23,15 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
         <meta name="description" content="Tamagui, Solito, Expo & Next.js" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ThemeProvider>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <ReactQueryProvider>
+        <ThemeProvider>
+          <YStack >
+            <Navbar />
+            <Separator />
+            <Component {...pageProps} />
+          </YStack>
+        </ThemeProvider>
+      </ReactQueryProvider>
     </>
   )
 }
