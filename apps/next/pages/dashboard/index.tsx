@@ -23,8 +23,7 @@ export default function DashboardPage() {
         if(!session.authenticated){
             router.push('/sign-in')
         }
-
-    }, [session.authenticated])
+    }, [session.authenticated, router])
 
     return <>
         {getPostsQuery.isLoading ? <LoadingSpinner /> : (getPostsQuery.data && <Posts posts={getPostsQuery.data} />)}

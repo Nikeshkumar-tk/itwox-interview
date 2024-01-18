@@ -1,3 +1,4 @@
+import { useToastController } from '@tamagui/toast'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import SignInForm from 'app/forms/auth/SignInForm'
 import { signInSchema } from 'app/validations'
@@ -9,23 +10,29 @@ import { z } from 'zod'
 function SignInPage() {
   const router = useRouter()
   const queryClient = useQueryClient()
-
+  const toast = useToastController()
   const signInMutation = useMutation({
     mutationKey: ['signIn'],
     mutationFn: async (data: z.infer<typeof signInSchema>) => {
+      console.log(data)
       if (!data.email || data.email !== "test@gmail.com") {
-        throw new Error('Email is required or incorrect')
+        throw Error('Email is required or incorrect')
       }
       if (data.password !== "12345678") {
-        throw new Error('Password is incorrect')
+        throw Error('Password is incorrect')
       }
       return data
     },
-    onSettled(data) {
+    onSuccess(data) {
       sessionStorage.setItem('user', JSON.stringify(data))
       router.push('/')
+    },
+    onSettled() {
       queryClient.invalidateQueries({ queryKey: ["userSession"] })
     },
+    onError(error) {
+      toast.show(error.message)
+    }
   })
 
   return (
