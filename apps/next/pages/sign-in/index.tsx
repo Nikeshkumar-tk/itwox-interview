@@ -14,7 +14,6 @@ function SignInPage() {
   const signInMutation = useMutation({
     mutationKey: ['signIn'],
     mutationFn: async (data: z.infer<typeof signInSchema>) => {
-      console.log(data)
       if (!data.email || data.email !== "test@gmail.com") {
         throw Error('Email is required or incorrect')
       }
