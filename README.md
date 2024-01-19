@@ -19,3 +19,9 @@ Only worked on the Next js created with the cli npm create tamagui@latest.
 
 email - test@gmail.com
 passoword - 12345678
+
+# env variables for the next project
+
+IGNORE_TS_CONFIG_PATHS=true
+TAMAGUI_TARGET=web
+TAMAGUI_DISABLE_WARN_DYNAMIC_LOAD=1
